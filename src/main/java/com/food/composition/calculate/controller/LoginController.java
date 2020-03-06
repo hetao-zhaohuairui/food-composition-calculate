@@ -14,32 +14,31 @@ import javax.servlet.http.HttpSession;
 
 /**
  * 登录控制器
- *
+ * 
  * @author H.R.ZHAO
+ *
+ * @version LoginController.java, v 0.1 2020年03月06日 11:48:28 H.R.ZHAO Exp $
  */
 @Controller
 public class LoginController {
 
-    @Autowired
-    private UserQueryComponent userQueryComponent;
+	@Autowired
+	private UserQueryComponent userQueryComponent;
 
-    @RequestMapping(value = "/user/login",method = RequestMethod.POST)
-    public String login(ModelMap modelMap,
-                        @RequestParam("username") String username,
-                        @RequestParam("password") String password,
-                        HttpSession session){
-        // 参数及用户判断
-        if(StringUtils.isEmpty(username) || StringUtils.isEmpty(password)){
-            modelMap.addAttribute("msg","用户名密码不能为空");
-            return  "login";
-        }
-        User user = userQueryComponent.getByLoginNamePassword(username, password);
-        if (user == null) {
-            modelMap.addAttribute("msg","用户不存在");
-            return  "login";
-        }
-        //登陆成功，防止表单重复提交，可以重定向到主页
-        session.setAttribute("loginUser", user);
-        return "redirect:/main.html";
-    }
+	@RequestMapping(value = "/user/login", method = RequestMethod.POST)
+	public String login(ModelMap modelMap, @RequestParam("username") String username, @RequestParam("password") String password, HttpSession session) {
+		// 参数及用户判断
+		if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password)) {
+			modelMap.addAttribute("msg", "用户名密码不能为空");
+			return "login";
+		}
+		User user = userQueryComponent.getByLoginNamePassword(username, password);
+		if (user == null) {
+			modelMap.addAttribute("msg", "用户不存在");
+			return "login";
+		}
+		// 登陆成功，防止表单重复提交，可以重定向到主页
+		session.setAttribute("loginUser", user);
+		return "redirect:/main.html";
+	}
 }
