@@ -4,6 +4,7 @@ import com.food.composition.calculate.model.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ import java.util.List;
  * @version UserMapper.java, v 0.1 2020年03月06日 11:49:01 H.R.ZHAO Exp $
  */
 @Mapper
+@Component
 public interface UserMapper {
 
 	@Select("SELECT * FROM USER WHERE ID=#{id} AND ENABLED=1")
